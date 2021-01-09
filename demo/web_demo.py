@@ -40,7 +40,7 @@ args = parser.parse_args()
 # update config file
 update_config(cfg, args)   
 
-model = get_model('vgg19')     
+model = get_model('vgg19')
 model.load_state_dict(torch.load(args.weight))
 model.cuda()
 model.float()

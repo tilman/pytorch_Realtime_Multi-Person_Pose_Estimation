@@ -10,18 +10,18 @@ from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 
 import torch
-from lib.datasets.preprocessing import (inception_preprocess,
+from ..lib.datasets.preprocessing import (inception_preprocess,
                                               rtpose_preprocess,
                                               ssd_preprocess, vgg_preprocess)
-from lib.network import im_transform                                              
-from lib.config import cfg, update_config
-from lib.utils.common import Human, BodyPart, CocoPart, CocoColors, CocoPairsRender, draw_humans
-from lib.utils.paf_to_pose import paf_to_pose_cpp
+from ..lib.network import im_transform                                              
+from ..lib.config import cfg, update_config
+from ..lib.utils.common import Human, BodyPart, CocoPart, CocoColors, CocoPairsRender, draw_humans
+from ..lib.utils.paf_to_pose import paf_to_pose_cpp
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cfg', help='experiment configure file name',
-                    default='./experiments/vgg19_368x368_sgd.yaml', type=str)
+                    default='./compoelem/detect/openpose/experiments/vgg19_368x368_sgd.yaml', type=str)
 parser.add_argument('--weight', type=str,
                     default='../ckpts/openpose.pth')
 parser.add_argument('opts',
@@ -105,7 +105,7 @@ def get_outputs(img, model, preprocess):
     batch_images= np.expand_dims(im_data, 0)
 
     # several scales as a batch
-    batch_var = torch.from_numpy(batch_images).cuda().float()
+    batch_var = torch.from_numpy(batch_images).float()
     predicted_outputs, _ = model(batch_var)
     output1, output2 = predicted_outputs[-2], predicted_outputs[-1]
     heatmap = output2.cpu().data.numpy().transpose(0, 2, 3, 1)[0]

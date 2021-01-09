@@ -4,9 +4,9 @@ import time
 from scipy.ndimage.filters import gaussian_filter, maximum_filter
 
 from scipy.ndimage.morphology import generate_binary_structure
-from lib.pafprocess import pafprocess
+from ..pafprocess import pafprocess
 
-from lib.utils.common import Human, BodyPart, CocoPart, CocoColors, CocoPairsRender
+from .common import Human, BodyPart, CocoPart, CocoColors, CocoPairsRender
 
 # Heatmap indices to find each limb (joint connection). Eg: limb_type=1 is
 # Neck->LShoulder, so joint_to_limb_heatmap_relationship[1] represents the
